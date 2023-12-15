@@ -1,15 +1,14 @@
-import express, { Express, Request, Response } from "express";
+import express from "express";
 import router from "./router";
+import {PORT_M1} from "./initConfig"
 
-const PORT = 8080
 
 const app = express()
 app.use(express.json())
-
 app.use('/api', router)
 async function startApp() {
     try {
-        app.listen(PORT, () => console.log('Server has been started'))
+        app.listen(PORT_M1, () => console.log('Server has been started'))
     }
     catch (error) {
         console.log(error)

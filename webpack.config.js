@@ -1,8 +1,12 @@
 const path = require("path");
 module.exports ={
-    entry: "./build/app.js",
+    entry: {
+        m1: "./build/m1/app.js",
+        m2: "./build/m2/app.js",
+
+    },
     output: {
-        filename: "bundle.js",
+        filename: '[name].bundle.js',
         publicPath: "/",
         path: path.join(__dirname, 'dist'),
         clean: true

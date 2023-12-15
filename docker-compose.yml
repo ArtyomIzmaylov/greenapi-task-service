@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  app-m2:
+    build:
+      context: .
+      dockerfile: ./docker/dev/m2/Dockerfile
+    container_name: app-m2
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    networks:
+      - internal
+    restart: always
   rabbitmq :
     image: rabbitmq:3.9-management-alpine
     ports:
@@ -16,15 +28,21 @@ services:
       timeout: 30s
       retries: 3
     restart: always
-  app:
-    build: .
-    container_name: app
+  app-m1:
+    build:
+      context: .
+      dockerfile: ./docker/dev/m1/Dockerfile
+    container_name: app-m1
     ports:
       - "8080:8080"
     env_file:
       - .env
     depends_on:
       - rabbitmq
+    networks:
+      - internal
+    restart: always
+
 networks:
   internal:
     name: ${APP_NAME}-net
