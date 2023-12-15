@@ -1,7 +1,7 @@
 # README #
 
 ### Instalation  
-1) Клонировать репозиторий git clone git@gitlab.lenvendo.ru:product/project/kamaz/backend/app/kamaz_backend.git
+1) Клонировать репозиторий git clone https://github.com/ArtyomIzmaylov/greenapi-task-service.git
 2) Скопировать из корня приложения файл окружения cp .env.sample .env установить необходимые параметры
 
 | Описание                                      | Значение | require | default  |
