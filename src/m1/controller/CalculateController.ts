@@ -13,16 +13,21 @@ export class CalculateController {
     }
     async create(req : Request, res : Response)  {
         try {
-            const schema = Joi.object({
-                calcNumber: Joi.number().required(),
+            const requestSchema = Joi.object({
+                requestId: Joi.string().required(),
+                calcNumber: Joi.number().required()
             });
 
-            const validation = schema.validate(req.body);
+            // Проверьте данные запроса на соответствие схеме
+            const requestValidation = requestSchema.validate({
+                requestId: req.headers['x-request-id'],
+                calcNumber: req.body.calcNumber
+            });
 
-            if (validation.error) {
-                return res.status(400).json({ error: validation.error.details[0].message });
+            if (requestValidation.error) {
+                // Если данные не соответствуют схеме, верните ошибку в ответе
+                return res.status(400).json({ error: requestValidation.error.details[0].message });
             }
-
             const requestId: string = req.headers['x-request-id'] as string;
             const calcNumber: number = parseInt(req.body.calcNumber);
             const calculateData: CalculateDataInterface = {
