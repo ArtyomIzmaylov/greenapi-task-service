@@ -7,7 +7,7 @@ export interface ConsumerInterface {
     consume(calculateData : CalculateDataInterface) : Promise<CalculationResultInterface>
 }
 
-export class Consumer {
+export class Consumer implements  ConsumerInterface{
     private channel! : amqp.Channel;
     private connection!: amqp.Connection;
     async closeChannel() {
@@ -19,7 +19,7 @@ export class Consumer {
         this.connection = await amqp.connect(RABBIT_URL)
         this.channel = await this.connection.createChannel()
     }
-    async consume(calculateData : CalculateDataInterface) {
+    async consume(calculateData : CalculateDataInterface) : Promise<CalculationResultInterface> {
         await this.createChannel()
         const q = await this.channel.assertQueue(QUEUE_RESULT, {durable : false})
 
