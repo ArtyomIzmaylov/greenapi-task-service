@@ -2,6 +2,10 @@ import amqp from "amqplib"
 import {CalculateDataInterface} from "../model/CalculateDataInterface";
 import {QUEUE_CALCULATE, RABBIT_URL} from "../initConfig";
 
+
+export interface ProducerInterface {
+    produce(calculateData : CalculateDataInterface) : Promise<void>
+}
 export class Producer {
     private channel! : amqp.Channel;
     private connection!: amqp.Connection;
@@ -17,7 +21,6 @@ export class Producer {
         await this.createChannel()
         await this.channel.assertQueue(QUEUE_CALCULATE, { durable: false });
         await this.channel.sendToQueue(QUEUE_CALCULATE, Buffer.from(JSON.stringify(calculateData)))
-        console.log(`The message ${calculateData} was send successful`)
     }
 }
 

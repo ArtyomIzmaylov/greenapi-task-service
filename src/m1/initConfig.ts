@@ -7,4 +7,5 @@ export const QUEUE_RESULT = process.env.QUEQUE_RESULT || "queue.result"
 
 export const PORT_M1 : number = parseInt(process.env.PORT_M1 || '8080')
 
+
 export const RABBIT_URL : string = process.env.RABBIT_URL || 'amqp://rabbitmq'
