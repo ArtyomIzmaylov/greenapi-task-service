@@ -12,31 +12,27 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build m1 Docker image
-      run: docker build . --file docker/dev/m1/Dockerfile --tag app-m1:$(date +%s) --tag app-m1:latest
-    
-    - uses: actions/checkout@v3
-    - name: Build m2 Docker image
-      run: docker build . --file docker/dev/m2/Dockerfile --tag app-m2:$(date +%s) --tag app-m2:latest
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - uses: redhat-actions/push-to-registry@v2.7
-    - name: Push to registry m1 Docker image
-      with:
-        image : app-m1:$(date +%s) app-m1:latest
-        registry: registry.rangeray.ru:5000
-        username : ${{secrets.REGISTRY_USER}}
-        password : ${{secrets.REGISTRY_PASSWORD}}
-      run: echo "Push to registry m1 Docker image"
-    
-    - uses: redhat-actions/push-to-registry@v2.7 
-    - name: Push to registry m2 Docker image
-      with:
-        image : app-m2:$(date +%s) app-m2:latest
-        registry: registry.rangeray.ru:5000
-        username : ${{secrets.REGISTRY_USER}}
-        password : ${{secrets.REGISTRY_PASSWORD}}
-      run: echo "Push to registry m2 Docker image"
-        
-        
-    
+      - name: Build m1 Docker image
+        run: docker build . --file docker/dev/m1/Dockerfile --tag app-m1:$(date +%s) --tag app-m1:latest
+
+      - name: Build m2 Docker image
+        run: docker build . --file docker/dev/m2/Dockerfile --tag app-m2:$(date +%s) --tag app-m2:latest
+
+      - name: Push to registry m1 Docker image
+        run: |
+          docker push registry.rangeray.ru:5000/app-m1:$(date +%s)
+          docker push registry.rangeray.ru:5000/app-m1:latest
+        env:
+          REGISTRY_USER: ${{secrets.REGISTRY_USER}}
+          REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
+
+      - name: Push to registry m2 Docker image
+        run: |
+          docker push registry.rangeray.ru:5000/app-m2:$(date +%s)
+          docker push registry.rangeray.ru:5000/app-m2:latest
+        env:
+          REGISTRY_USER: ${{secrets.REGISTRY_USER}}
+          REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
