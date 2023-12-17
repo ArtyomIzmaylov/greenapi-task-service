@@ -22,21 +22,21 @@ jobs:
 
     - uses: redhat-actions/push-to-registry@v2.7
     - name: Push to registry m1 Docker image
-      run: echo "Push to registry m1 Docker image"
       with:
         image : app-m1:$(date +%s) app-m1:latest
         registry: registry.rangeray.ru:5000
         username : ${{secrets.REGISTRY_USER}}
         password : ${{secrets.REGISTRY_PASSWORD}}
+      run: echo "Push to registry m1 Docker image"
     
     - uses: redhat-actions/push-to-registry@v2.7 
     - name: Push to registry m2 Docker image
-      run: echo "Push to registry m2 Docker image"
       with:
         image : app-m2:$(date +%s) app-m2:latest
         registry: registry.rangeray.ru:5000
         username : ${{secrets.REGISTRY_USER}}
         password : ${{secrets.REGISTRY_PASSWORD}}
+      run: echo "Push to registry m2 Docker image"
         
         
     
