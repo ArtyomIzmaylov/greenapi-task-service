@@ -21,16 +21,11 @@ jobs:
       - name: Build m2 Docker image
         run: docker build . --file docker/dev/m2/Dockerfile --tag registry.rangeray.ru:5000/app-m2:latest
 
+      - name: Login to Docker registry
+        run: docker login registry.rangeray.ru:5000 -u ${{secrets.REGISTRY_USER}} -p ${{secrets.REGISTRY_PASSWORD}}
+
       - name: Push to registry m1 Docker image
-        run: |
-          docker push registry.rangeray.ru:5000/app-m1:latest
-        env:
-          REGISTRY_USER: ${{secrets.REGISTRY_USER}}
-          REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
+        run: docker push registry.rangeray.ru:5000/app-m1:latest
 
       - name: Push to registry m2 Docker image
-        run: |
-          docker push registry.rangeray.ru:5000/app-m2:latest
-        env:
-          REGISTRY_USER: ${{secrets.REGISTRY_USER}}
-          REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
+        run: docker push registry.rangeray.ru:5000/app-m2:latest
