@@ -16,10 +16,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build m1 Docker image
-        run: docker build . --file docker/dev/m1/Dockerfile --tag app-m1:$(date +%s) --tag app-m1:latest
+        run: docker build . --file docker/dev/m1/Dockerfile --tag registry.rangeray.ru:5000/app-m1:$(date +%s) --tag registry.rangeray.ru:5000/app-m1:latest
 
       - name: Build m2 Docker image
-        run: docker build . --file docker/dev/m2/Dockerfile --tag app-m2:$(date +%s) --tag app-m2:latest
+        run: docker build . --file docker/dev/m2/Dockerfile --tag registry.rangeray.ru:5000/app-m2:$(date +%s) --tag registry.rangeray.ru:5000/app-m2:latest
 
       - name: Push to registry m1 Docker image
         run: |
