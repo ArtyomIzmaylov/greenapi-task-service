@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m1
+  template:
+    metadata:
+      labels:
+        app: m1
+    spec:
+      containers:
+        - name: m1
+          image: registry.rangeray.ru:5000/app-m1:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: RABBIT_URL
+              value: amqp://rabbitmq-service
+            - name: RABBITMQ_HOST
+              value: rabbitmq-service
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_MANAGEMENT_PORT
+              value: "15672"
+      imagePullSecrets:
+        - name: registry-secret
+
