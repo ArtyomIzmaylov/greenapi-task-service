@@ -1,6 +1,6 @@
 # README #
 
-### Локальное развертывание на Docker  
+### Локальное развертывание на docker-compose  
 1) Клонировать репозиторий git clone https://github.com/ArtyomIzmaylov/greenapi-task-service.git
 2) Скопировать из корня приложения файл окружения cp .env.sample .env установить необходимые параметры
 
