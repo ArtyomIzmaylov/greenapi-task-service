@@ -33,7 +33,3 @@ jobs:
       - name: Push to registry m2 Docker image
         run: docker push {{vars.REGISTRY_URL}}/app-m2:latest
 
-  deploy:
-    runs-on: ubuntu-latest
-
-
